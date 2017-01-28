@@ -33,23 +33,26 @@ public class ReqIFParser {
 		return reqIFParser;
 	}
 
-	public void readXML(){
+	public Document readXML(){
+		Document doc = null;
 		try{
 			File xmlFile = new File("/Users/charlieseo/Documents/IBM/PMR/AU/RDNG/Downer/Test02/Requirements.reqif");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = dbFactory.newDocumentBuilder();
-			Document doc = builder.parse(xmlFile);
+			doc = builder.parse(xmlFile);
 			
 			// optional but recommended, http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
 			
 			doc.getDocumentElement().normalize();
 		
 			
-			this.getReqRef(doc);
+			//this.getReqRef(doc);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return doc;
 	}
 	
 	
