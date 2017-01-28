@@ -4,6 +4,7 @@ public class ReqRelation {
 	
 	private Requirement sourceReq;
 	private Requirement targetReq;
+	
 	public Requirement getSourceReq() {
 		return sourceReq;
 	}
