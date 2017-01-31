@@ -1,5 +1,8 @@
 package com.rcs.ap;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReqIFModuleLinkBuilder {
@@ -49,9 +52,43 @@ public class ReqIFModuleLinkBuilder {
 			sbOutput.append("</SPEC-RELATION>\n");
 		}
 		
-		String finalString = sbOutput.toString();
-		
-		System.out.println(finalString);
+		String linkMapping = sbOutput.toString();
+		createMappingFile(linkMapping);
+		System.out.println(linkMapping);
 		return specRelationXML;
+	}
+	
+	private void createMappingFile(String linkMapping) {
+		
+		FileOutputStream fos = null;
+		
+		File file;
+		
+		try {
+			file = new File("linkmapping.txt");
+			fos = new FileOutputStream(file);
+			
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			
+			byte[] contentInBytes = linkMapping.getBytes();
+			
+			fos.write(contentInBytes);
+			fos.flush();
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 	}
 }

@@ -8,7 +8,12 @@ public class ReqIFModuleLink {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Document doc = ReqIFParser.getInstance().readXML();
+		
+		System.out.print("Please specify the ReqIF file path: ");
+		
+		String filePath = System.console().readLine();
+		
+		Document doc = ReqIFParser.getInstance().readXML(filePath);
 		
 		ReqFactory reqFactory = new ReqFactory(doc);
 		

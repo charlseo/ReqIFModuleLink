@@ -12,9 +12,10 @@ public class ReqIFParser {
 	
 	private static ReqIFParser reqIFParser;
 	private static Object classLock = ReqIFParser.class;
+	//private String filePath;
 	
 	private ReqIFParser(){
-		
+		//this.filePath = filePath;
 	}
 	
 	public static ReqIFParser getInstance() {
@@ -33,10 +34,10 @@ public class ReqIFParser {
 		return reqIFParser;
 	}
 
-	public Document readXML(){
+	public Document readXML(String filePath){
 		Document doc = null;
 		try{
-			File xmlFile = new File("/Users/charlieseo/Documents/IBM/PMR/AU/RDNG/Downer/Test02/Requirements.reqif");
+			File xmlFile = new File(filePath);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = dbFactory.newDocumentBuilder();
 			doc = builder.parse(xmlFile);
@@ -69,7 +70,7 @@ public class ReqIFParser {
 		for (int i = 0; i < nlist.getLength(); i++) {
 			
 			Node nNode = nlist.item(i);
-			System.out.println("\nCurrent element: " + nNode.getNodeName());
+			//System.out.println("\nCurrent element: " + nNode.getNodeName());
 			
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element eElement = (Element) nNode;
@@ -103,7 +104,7 @@ public class ReqIFParser {
 				Element eElement = (Element) nNode;
 				String ReqIFUUID = eElement.getElementsByTagName("SPEC-OBJECT-REF").item(0).getTextContent();
 				if (reqRef.equals(ReqIFUUID)) {
-					System.out.println("\nCurrent element: " + nNode.getNodeName());
+					//System.out.println("\nCurrent element: " + nNode.getNodeName());
 					System.out.println("Core-Ref: " + eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent());
 				}
 				
