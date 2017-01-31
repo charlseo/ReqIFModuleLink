@@ -23,7 +23,7 @@ public class ReqIFModuleLink {
 			System.out.println(reqs.get(i).getReqID());
 		}
 		
-		LinkFactory linkFactory = new LinkFactory(doc, reqs);
+		ReqRelationFactory linkFactory = new ReqRelationFactory(doc, reqs);
 		
 		ArrayList<ReqRelation> reqRelations = new ArrayList<ReqRelation>();
 		

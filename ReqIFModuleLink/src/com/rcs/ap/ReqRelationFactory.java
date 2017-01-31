@@ -7,13 +7,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class LinkFactory {
+public class ReqRelationFactory {
 
 	Document doc;
 	ArrayList<ReqRelation> reqLinks = new ArrayList<ReqRelation>();
 	ArrayList<Requirement> requirements = new ArrayList<Requirement>();
 	
-	public LinkFactory (Document doc, ArrayList<Requirement> requirements) {
+	public ReqRelationFactory (Document doc, ArrayList<Requirement> requirements) {
 		this.doc = doc;
 		this.requirements = requirements;
 		getReqRelations();
@@ -36,7 +36,7 @@ public class LinkFactory {
 			for (int i = 0; i < nlist.getLength(); i++) {
 				
 				Node nNode = nlist.item(i);
-				System.out.println("\nCurrent element: " + nNode.getNodeName());
+				//System.out.println("\nCurrent element: " + nNode.getNodeName());
 				
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element relation = (Element) nNode;
