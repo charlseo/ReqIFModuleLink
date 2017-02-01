@@ -23,10 +23,10 @@ public class ReqIFModuleLink {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//System.out.print("Please specify the ReqIF file path: ");
+		System.out.print("Please specify the ReqIF file path: ");
 		
-		//String filePath = System.console().readLine();
-		String filePath = "/Users/charlieseo/Documents/IBM/PMR/AU/RDNG/Downer/DOWNERDNG01.reqifz";
+		String filePath = System.console().readLine();
+		//String filePath = "/Users/charlieseo/Documents/IBM/PMR/AU/RDNG/Downer/DOWNERDNG01.reqifz";
 		String reqIFFile = unZip(filePath);
 		
 		Document doc = ReqIFParser.getInstance().readXML(reqIFFile);
