@@ -18,44 +18,55 @@ import java.util.zip.ZipInputStream;
 
 import org.w3c.dom.Document;
 
+import com.rcs.ap.util.Unzip;
+
 public class ReqIFModuleLink {
 
 	private static String tempFolder = System.getProperty("java.io.tmpdir");
 	
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-//		boolean isZipFile = false;
-//		String filePath = null;
-//		while (!isZipFile) {
-//			System.out.print("-----Please specify the ReqIF file (*.reqifz) path: ");
-//			filePath = System.console().readLine();
-//			File file = new File(filePath);
-//	        
-//	        try {
-//				RandomAccessFile raf = new RandomAccessFile(file, "r");
-//				System.out.println("test");
-//				long n = raf.readInt();
-//				if (n == 0x504B0304){
-//					isZipFile = true;
-//				} else {
-//					System.out.println("It seems the file is not an archive formate. Please check and enter a correct file path: ");
-//				}
-//				
-//			} catch (FileNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		String workingFolder = filePath.
-//		
+		boolean isZipFile = false;
+		String filePath = null;
+		while (!isZipFile) {
+			System.out.print("-----Please specify the ReqIF file (*.reqifz) path: ");
+			filePath = System.console().readLine();
+			File file = new File(filePath);
+	        
+	        try {
+				RandomAccessFile raf = new RandomAccessFile(file, "r");
+				System.out.println("test");
+				long n = raf.readInt();
+				if (n == 0x504B0304){
+					isZipFile = true;
+				} else {
+					System.out.println("It seems the file is not an archive formate. Please check and enter a correct file path: ");
+				}
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		File file = new File(filePath);
+		
+		String separator = file.separator;
+		int lastIndex = filePath.lastIndexOf(separator);
+		
+		
+		String workingFolder = filePath.substring(0, lastIndex);
+		
+		Unzip unzip = new Unzip(filePath,workingFolder);
+		String reqIFFile = unzip.unZipIt();
 		//String filePath = "/Users/charlieseo/Documents/IBM/PMR/AU/RDNG/Downer/Sydney_demo/Requirements.reqif";
 		//String reqIFFile = unZip(filePath);
 		//System.out.println(reqIFFile);
-		
-		System.out.print("-----Please specify the ReqIF file path: ");
-		String filePath = System.console().readLine();
-		Document doc = ReqIFParser.getInstance().readXML(filePath);
+//		
+//		System.out.print("-----Please specify the ReqIF file path: ");
+//		String filePath = System.console().readLine();
+				
+		Document doc = ReqIFParser.getInstance().readXML(reqIFFile);
 		
 		ReqFactory reqFactory = new ReqFactory(doc);
 		

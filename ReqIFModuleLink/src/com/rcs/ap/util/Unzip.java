@@ -17,8 +17,10 @@ public class Unzip {
 		this.outputFolder = outputFolder;
 	}
 	
-	public void unZipIt(){
-
+	public String unZipIt(){
+		
+		String reqIFFile = null;
+		
 	     byte[] buffer = new byte[1024];
 
 	     try{
@@ -39,7 +41,9 @@ public class Unzip {
 
 	    	   String fileName = ze.getName();
 	           File newFile = new File(outputFolder + File.separator + fileName);
-
+	           if (fileName.contains(".reqif")){
+	        	   reqIFFile = newFile.getAbsolutePath();
+	           }
 	           System.out.println("file unzip : "+ newFile.getAbsoluteFile());
 
 	            //create all non exists folders
@@ -65,5 +69,6 @@ public class Unzip {
 	    }catch(IOException ex){
 	       ex.printStackTrace();
 	    }
+	     return reqIFFile;
 	   }
 }
