@@ -68,10 +68,26 @@ public class ReqFactory {
 				String ReqIFUUID = eElement.getElementsByTagName("SPEC-OBJECT-REF").item(0).getTextContent();
 				if (reqRef.equals(ReqIFUUID)) {
 					System.out.println("\nCurrent element: " + nNode.getNodeName());
-					coreRef = eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent();
-					System.out.println("Core-Ref: " + coreRef);
-					req.setCoreRef(coreRef);
-					requirements.add(req);
+					try {
+						coreRef = eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent();
+					} catch (Exception e) {
+						System.out.println(e.getStackTrace());
+						coreRef = eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent();
+					}
+					
+					
+//					if (eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent() != null){
+//						coreRef = eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent();
+//					} else if (eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent() != null) {
+//						coreRef = eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent();
+//					}
+					
+					if (coreRef != null) {
+						System.out.println("Core-Ref: " + coreRef);
+						req.setCoreRef(coreRef);
+						requirements.add(req);
+					}
+					
 				}
 				
 			}

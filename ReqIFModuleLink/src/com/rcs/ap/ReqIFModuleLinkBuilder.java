@@ -24,9 +24,12 @@ public class ReqIFModuleLinkBuilder {
 			for (int j=0; j < reqs.size(); j++){
 				String reqRef = reqs.get(j).getRef();
 				String reqCoreRef = reqs.get(j).getCoreRef();
-				if (relations.get(i).getTargetCoreReqID().equals(reqCoreRef)){
-					relations.get(i).setTargetReqID(reqRef);
+				if (reqCoreRef != null) {
+					if (relations.get(i).getTargetCoreReqID().equals(reqCoreRef)){
+						relations.get(i).setTargetReqID(reqRef);
+					}
 				}
+				
 			}
 				
 			
