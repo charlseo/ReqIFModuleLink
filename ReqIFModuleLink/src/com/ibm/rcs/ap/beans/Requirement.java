@@ -1,4 +1,4 @@
-package com.rcs.ap;
+package com.ibm.rcs.ap.beans;
 
 public class Requirement {
 	

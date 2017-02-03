@@ -1,9 +1,11 @@
-package com.rcs.ap.util;
+package com.ibm.rcs.ap.util;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -12,9 +14,13 @@ public class Unzip {
 	private String inputZipFile;
 	private String outputFolder;
 	
+	private String timeStamp;
+	
 	public Unzip (String inputZipFile, String outputFolder) {
 		this.inputZipFile = inputZipFile;
-		this.outputFolder = outputFolder;
+		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		this.outputFolder = outputFolder + File.separator + "temp_" + timeStamp;
+		System.out.println(outputFolder);
 	}
 	
 	public String unZipIt(){
@@ -70,5 +76,22 @@ public class Unzip {
 	       ex.printStackTrace();
 	    }
 	     return reqIFFile;
-	   }
+	}
+	
+	public String getInputZipFile() {
+		return inputZipFile;
+	}
+
+	public void setInputZipFile(String inputZipFile) {
+		this.inputZipFile = inputZipFile;
+	}
+
+	public String getOutputFolder() {
+		return outputFolder;
+	}
+
+	public void setOutputFolder(String outputFolder) {
+		this.outputFolder = outputFolder;
+	}
+
 }

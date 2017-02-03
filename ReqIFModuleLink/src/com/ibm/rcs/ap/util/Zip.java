@@ -1,4 +1,4 @@
-package com.rcs.ap.util;
+package com.ibm.rcs.ap.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

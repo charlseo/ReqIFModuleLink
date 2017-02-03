@@ -35,7 +35,7 @@
 		<jar jarfile="${dist.dir}/${projectName}-${DSTAMP}.jar" basedir="${build.dir}" >
 		    <manifest>
 			<!-- create an executable Jar -->
-			<attribute name="Main-Class" value="com.rcs.ap.ReqIFModuleLink" />
+			<attribute name="Main-Class" value="com.ibm.rcs.ap.ReqIFModuleLink" />
 		    </manifest>
 		</jar>
 	</target>

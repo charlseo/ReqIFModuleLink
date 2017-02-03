@@ -1,20 +1,27 @@
-package com.rcs.ap;
+package com.ibm.rcs.ap;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.ibm.rcs.ap.beans.ReqRelation;
+import com.ibm.rcs.ap.beans.Requirement;
+import com.ibm.rcs.ap.util.AddXMLNode;
+
 public class ReqIFModuleLinkBuilder {
 	
+	private String reqIFFile;
 	private ArrayList<Requirement> reqs = new ArrayList<Requirement>();
 	private ArrayList<ReqRelation> relations = new ArrayList<ReqRelation>();
-	String specRelationXML;
-	private String SPECRELATIONS = "<SPEC-RELATION LAST-CHANGE=\"";
+	private AddXMLNode addXmlNode;
+	//String specRelationXML;
+	//private String SPECRELATIONS = "<SPEC-RELATION LAST-CHANGE=\"";
 	
-	public ReqIFModuleLinkBuilder(ArrayList<Requirement> reqs, ArrayList<ReqRelation> relations){
+	public ReqIFModuleLinkBuilder(ArrayList<Requirement> reqs, ArrayList<ReqRelation> relations, String reqIFFile){
 		this.reqs = reqs;
 		this.relations = relations;
+		this.reqIFFile = reqIFFile;
 	}
 	
 	private void getReqLinkMappings() {
@@ -36,29 +43,27 @@ public class ReqIFModuleLinkBuilder {
 		}
 	}
 	
-	public String createXMLMaps(){
+	public void createXMLMaps() throws IOException, Exception{
 		getReqLinkMappings();
-		StringBuilder sbOutput  = new StringBuilder();
-		
+		//
+		addXmlNode = new AddXMLNode(reqIFFile);
 		for (int i=0; i < relations.size(); i++) {
 			System.out.println(relations.get(i).getSourceReqID());
 			System.out.println(relations.get(i).getTargetReqID());
-			
+			StringBuilder sbOutput  = new StringBuilder();
 			sbOutput.append("<SPEC-RELATION LAST-CHANGE=\"" + relations.get(i).getLastChange() + "\" IDENTIFIER=\"" +
-					relations.get(i).getIdentifier() + "\">\n");
-			sbOutput.append("<SOURCE>\n" + "<SPEC-OBJECT-REF>" + relations.get(i).getSourceReqID() + "</SPEC-OBJECT-REF>\n" +
-					"</SOURCE>\n");
-			sbOutput.append("<TARGET>\n" + "<SPEC-OBJECT-REF>" + relations.get(i).getTargetReqID() + "</SPEC-OBJECT-REF>\n" +
-					"</TARGET>\n");
-			sbOutput.append("<TYPE>\n" + "<SPEC-RELATION-TYPE-REF>" + relations.get(i).getType() + "</SPEC-RELATION-TYPE-REF>\n" +
-					"</TYPE>\n");
-			sbOutput.append("</SPEC-RELATION>\n");
+					relations.get(i).getIdentifier() + "\">");
+			sbOutput.append("<SOURCE>" + "<SPEC-OBJECT-REF>" + relations.get(i).getSourceReqID() + "</SPEC-OBJECT-REF>" +
+					"</SOURCE>");
+			sbOutput.append("<TARGET>" + "<SPEC-OBJECT-REF>" + relations.get(i).getTargetReqID() + "</SPEC-OBJECT-REF>" +
+					"</TARGET>");
+			sbOutput.append("<TYPE>" + "<SPEC-RELATION-TYPE-REF>" + relations.get(i).getType() + "</SPEC-RELATION-TYPE-REF>" +
+					"</TYPE>");
+			sbOutput.append("</SPEC-RELATION>");
+			String linkMapping = sbOutput.toString();
+			addXmlNode.addLinkMaps(linkMapping);
 		}
 		
-		String linkMapping = sbOutput.toString();
-		createMappingFile(linkMapping);
-		System.out.println(linkMapping);
-		return specRelationXML;
 	}
 	
 	private void createMappingFile(String linkMapping) {
@@ -93,5 +98,13 @@ public class ReqIFModuleLinkBuilder {
 		}
 		
 		
+	}
+
+	public AddXMLNode getAddXmlNode() {
+		return addXmlNode;
+	}
+
+	public void setAddXmlNode(AddXMLNode addXmlNode) {
+		this.addXmlNode = addXmlNode;
 	}
 }

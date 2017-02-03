@@ -1,4 +1,4 @@
-package com.rcs.ap;
+package com.ibm.rcs.ap;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
