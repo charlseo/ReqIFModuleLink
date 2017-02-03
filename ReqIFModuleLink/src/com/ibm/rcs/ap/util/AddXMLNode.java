@@ -60,7 +60,7 @@ public class AddXMLNode {
 		bw.write(sb.toString());
 		bw.close();
   	    
-  	    System.out.println("NameSpace added");
+  	    System.out.println("--- NameSpace added");
 	}
 	
 	public void addLinkMaps(String linkMaps) throws Exception, IOException{
@@ -111,7 +111,7 @@ public class AddXMLNode {
   	    Transformer transformer = transformerFactory.newTransformer();
   	    StreamResult result = new StreamResult(reqIfFilePath);
   	    transformer.transform(source, result);
-  	    System.out.println("XML updated in " + reqIfFilePath);
+  	    //System.out.println("XML updated in " + reqIfFilePath);
   }
 	
 	private Document convertStringToDocument(String xmlStr) {

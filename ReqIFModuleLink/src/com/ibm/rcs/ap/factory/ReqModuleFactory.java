@@ -1,4 +1,4 @@
-package com.ibm.rcs.ap;
+package com.ibm.rcs.ap.factory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,10 +28,10 @@ public class ReqModuleFactory {
 	}
 	
 	public void updateDOORSReqIFDefinition() throws IOException, Exception{
-		collectReqIfToken();
-		getModuleTypeRef();
+		collectReqIfToken(); // req-if-common is added for rount trip
+		getModuleTypeRef();  // get module type ref ID to retrieve module Refs
 		collectModuleRefs();
-		createDOORSReqIFDefinition();
+		createDOORSReqIFDefinition(); // Append DOORS REQ-IF DEFINITION to enable round trip including import & merge
 	}
 	
 	private void collectReqIfToken(){

@@ -15,8 +15,6 @@ public class ReqIFModuleLinkBuilder {
 	private ArrayList<Requirement> reqs = new ArrayList<Requirement>();
 	private ArrayList<ReqRelation> relations = new ArrayList<ReqRelation>();
 	private AddXMLNode addXmlNode;
-	//String specRelationXML;
-	//private String SPECRELATIONS = "<SPEC-RELATION LAST-CHANGE=\"";
 	
 	public ReqIFModuleLinkBuilder(ArrayList<Requirement> reqs, ArrayList<ReqRelation> relations, String reqIFFile){
 		this.reqs = reqs;
@@ -45,11 +43,11 @@ public class ReqIFModuleLinkBuilder {
 	
 	public void createXMLMaps() throws IOException, Exception{
 		getReqLinkMappings();
-		//
+		System.out.println("Creating artifact module link maps now.............");
 		addXmlNode = new AddXMLNode(reqIFFile);
 		for (int i=0; i < relations.size(); i++) {
-			System.out.println(relations.get(i).getSourceReqID());
-			System.out.println(relations.get(i).getTargetReqID());
+			System.out.println("Module-Source ID: " +relations.get(i).getSourceReqID());
+			System.out.println("Module-Target ID: " + relations.get(i).getTargetReqID());
 			StringBuilder sbOutput  = new StringBuilder();
 			sbOutput.append("<SPEC-RELATION LAST-CHANGE=\"" + relations.get(i).getLastChange() + "\" IDENTIFIER=\"" +
 					relations.get(i).getIdentifier() + "\">");
@@ -66,6 +64,7 @@ public class ReqIFModuleLinkBuilder {
 		
 	}
 	
+	// depreciated
 	private void createMappingFile(String linkMapping) {
 		
 		FileOutputStream fos = null;

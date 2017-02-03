@@ -23,7 +23,7 @@ public class ReqIFParser {
 		if (reqIFParser == null) {
 			synchronized(ReqIFParser.class){
 				if (reqIFParser == null) {
-					System.out.println("First time instantiating getInstace()");
+					System.out.println("Reading *.reqif XML file...");
 					reqIFParser = new ReqIFParser();
 					
 				}

@@ -20,6 +20,9 @@ import org.w3c.dom.Document;
 
 import com.ibm.rcs.ap.beans.ReqRelation;
 import com.ibm.rcs.ap.beans.Requirement;
+import com.ibm.rcs.ap.factory.ReqFactory;
+import com.ibm.rcs.ap.factory.ReqModuleFactory;
+import com.ibm.rcs.ap.factory.ReqRelationFactory;
 import com.ibm.rcs.ap.util.AddXMLNode;
 import com.ibm.rcs.ap.util.ConsoleHelper;
 import com.ibm.rcs.ap.util.Test;
@@ -33,49 +36,56 @@ public class ReqIFModuleLink {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
-		
+		// Provide console interface to get ReqIFz as an input.
 		ConsoleHelper console = new ConsoleHelper();		
 		String filePath = console.getReqIfzFile();		
-		String reqifzFileName = console.getFileName();
+		//String reqifzFileName = console.getFileName();
+
 		
+		// Eclipse test class
 //		Test test = new Test();
-//		
-//		String filePath = test.getReqIFzFile();
-//		
+//		String filePath = test.getReqIFzFile();	
 //		String reqIFFile = test.getReqIFFile();
 		
+		// Handling uncompression and compression by ZipHandler
 		
-		
-		ZipHandler zipHandler = new ZipHandler(filePath);
-		
+		ZipHandler zipHandler = new ZipHandler(filePath);		
 		zipHandler.unzipit();
 		
+		// Return reqif file
 		String reqIFFile = zipHandler.getReqifFilePath();
 				
 		Document doc = ReqIFParser.getInstance().readXML(reqIFFile);
 		
+		// Collect requirement artifacts from reqif xmml
 		ReqFactory reqFactory = new ReqFactory(doc);
 		
 		ArrayList<Requirement> reqs= reqFactory.getRequirements();
 		
-		for (int i = 0; i < reqs.size(); i++) {
-			System.out.println(reqs.get(i).getReqID());
-		}
-		
-		ReqRelationFactory linkFactory = new ReqRelationFactory(doc, reqs);
-		
+		// Collect link mapping information from reqif xml
+		ReqRelationFactory linkFactory = new ReqRelationFactory(doc, reqs);		
 		ArrayList<ReqRelation> reqRelations = new ArrayList<ReqRelation>();
-		
 		reqRelations = linkFactory.getReqLinks();
 		
+		// Building link mapping for Artifact Module linking 
+		// Core artifact Ref mapping is used to create artifact module mapping with module artifact refs
 		ReqIFModuleLinkBuilder linkBuilder = new ReqIFModuleLinkBuilder(reqs, reqRelations, reqIFFile);
 		
+		// Create XML link mapping and append into the existing reqif file. 
 		linkBuilder.createXMLMaps();
 		AddXMLNode addXmlNode = linkBuilder.getAddXmlNode();
+		
+		// Collect module ref ID 
 		ReqModuleFactory reqModFactory = new ReqModuleFactory(doc, addXmlNode);
+		
+		// Adding xmlns:doors namespace for DOORS REQIF-DEFINITION
 		addXmlNode.addNameSpace();
+		
+		// Appending DOORS REQIF-DEFINITION with MODULE LOCK
 		reqModFactory.updateDOORSReqIFDefinition();
-		//zipHandler.zipit();
+		
+		// Compress all relevant files into reqifz as a final outcome. 
+		zipHandler.zipit();
 		
 		
 		

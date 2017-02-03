@@ -1,4 +1,4 @@
-package com.ibm.rcs.ap;
+package com.ibm.rcs.ap.factory;
 
 import java.util.ArrayList;
 
@@ -24,10 +24,10 @@ public class ReqFactory {
 		String reqRef = null;
 		String reqID = null;
 		
-		System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+		//System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 		NodeList nlist = doc.getElementsByTagName("SPEC-OBJECT");
 		
-		System.out.println("----------------------");
+		System.out.println("Reading requirement artifacts .........");
 		
 		for (int i = 0; i < nlist.getLength(); i++) {
 			
@@ -53,9 +53,7 @@ public class ReqFactory {
 
 	private void getReqCoreRef(Document doc, String reqRef, Requirement req){
 		
-		doc.getDocumentElement().normalize();
-		
-		System.out.println("Object mapping: " + doc.getDocumentElement().getNodeName());
+		System.out.println("Collecting artifact IDs........");
 		NodeList nlist = doc.getElementsByTagName("rm:SPEC-OBJECT-EXTENSION");
 		
 		System.out.println("----------------------");
@@ -77,12 +75,6 @@ public class ReqFactory {
 						coreRef = eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent();
 					}
 					
-					
-//					if (eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent() != null){
-//						coreRef = eElement.getElementsByTagName("rm:CORE-SPEC-OBJECT-REF").item(0).getTextContent();
-//					} else if (eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent() != null) {
-//						coreRef = eElement.getElementsByTagName("rm:WRAPPED-RESOURCE-REF").item(0).getTextContent();
-//					}
 					
 					if (coreRef != null) {
 						System.out.println("Core-Ref: " + coreRef);

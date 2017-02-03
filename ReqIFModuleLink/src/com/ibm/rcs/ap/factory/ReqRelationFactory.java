@@ -1,4 +1,4 @@
-package com.ibm.rcs.ap;
+package com.ibm.rcs.ap.factory;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class ReqRelationFactory {
 		//String reqRef = null;
 		//String reqID = null;
 		
-		System.out.println("Root element for SPEC-RELATION: " + doc.getDocumentElement().getNodeName());
+		System.out.println("Checking requirement artifact linking.................");
 		NodeList nlist = doc.getElementsByTagName("SPEC-RELATION");
 		
 		

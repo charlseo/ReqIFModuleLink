@@ -20,7 +20,7 @@ public class Unzip {
 		this.inputZipFile = inputZipFile;
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		this.outputFolder = outputFolder + File.separator + "temp_" + timeStamp;
-		System.out.println(outputFolder);
+		System.out.println("ReqIFz file has been unzipped in :" +outputFolder);
 	}
 	
 	public String unZipIt(){
@@ -69,8 +69,6 @@ public class Unzip {
 
 	        zis.closeEntry();
 	    	zis.close();
-
-	    	System.out.println("Done");
 
 	    }catch(IOException ex){
 	       ex.printStackTrace();
