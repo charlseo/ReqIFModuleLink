@@ -50,7 +50,7 @@ public class Zip {
 	    	//remember close it
 	    	zos.close();
 
-	    	System.out.println("Done");
+	    	System.out.println("Files are compressed successfully.");
 	    }catch(IOException ex){
 	       ex.printStackTrace();
 	    }

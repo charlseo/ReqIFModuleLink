@@ -56,13 +56,18 @@ public class ReqModuleFactory {
 		String xmlOutput = sbOutput.toString();
 		addXmlNode.addReqIfDef(xmlOutput);
 		for (int i = 0; i < modules.size(); i++ ){
-			
 			StringBuffer sbOutput2 = new StringBuffer();
-			sbOutput2.append("<doors:MODULE-DEFINITION><doors:DDC-MODE>DDC_FULL_MODULE</doors:DDC-MODE><SPECIFICATION-REF>");
-			sbOutput2.append(modules.get(i).getModRef());
-			sbOutput2.append("</SPECIFICATION-REF></doors:MODULE-DEFINITION>");
+			
+			if (modules.get(i).getModRef() != null) {
+				
+				sbOutput2.append("<doors:MODULE-DEFINITION><doors:DDC-MODE>DDC_FULL_MODULE</doors:DDC-MODE><SPECIFICATION-REF>");
+				sbOutput2.append(modules.get(i).getModRef());
+				sbOutput2.append("</SPECIFICATION-REF></doors:MODULE-DEFINITION>");
+			}
+			
 			
 			String moduleDefinition = sbOutput2.toString();
+			//String moduleDefUTF8 = new String(moduleDefinition, UTF_8);
 			addXmlNode.addModDef(moduleDefinition);
 		}
 		
@@ -102,6 +107,9 @@ public class ReqModuleFactory {
 			}
 		}
 		
+		for (int j = 0; j < modules.size(); j++) {
+			System.out.println("Module_" + j + ": " + modules.get(j).getModRef());
+		}
 	}
 	
 	public void getModuleTypeRef(){

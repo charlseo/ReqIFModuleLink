@@ -14,6 +14,7 @@ public class ZipHandler {
 	private String outputFolder;
 	private String reqifFilePath;
 	private String reqifzFileName;
+	private String outputFileName;
 	
 	public ZipHandler(String reqifzFilePath) {
 		this.reqifzFilePath = reqifzFilePath;
@@ -34,7 +35,7 @@ public class ZipHandler {
 	
 	public void zipit(){
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-		String outputFileName = workingFolder + File.separator + timeStamp + "_" + reqifzFileName;
+		outputFileName = workingFolder + File.separator + timeStamp + "_" + reqifzFileName;
 		
 		zip = new Zip(outputFileName,outputFolder);
 		zip.generateFileList(new File(outputFolder));
@@ -79,6 +80,14 @@ public class ZipHandler {
 
 	public void setReqifzFileName(String reqifzFileName) {
 		this.reqifzFileName = reqifzFileName;
+	}
+
+	public String getOutputFileName() {
+		return outputFileName;
+	}
+
+	public void setOutputFileName(String outputFileName) {
+		this.outputFileName = outputFileName;
 	}
 	
 	

@@ -38,17 +38,18 @@ public class ReqIFModuleLink {
 
 		// Provide console interface to get ReqIFz as an input.
 		ConsoleHelper console = new ConsoleHelper();		
-		String filePath = console.getReqIfzFile();		
-		//String reqifzFileName = console.getFileName();
-
+		String filePath = console.getReqIfzFile();	
+		File filePathCheck = new File(filePath);
+		filePath = filePathCheck.getAbsolutePath();
 		
+
 		// Eclipse test class
 //		Test test = new Test();
 //		String filePath = test.getReqIFzFile();	
 //		String reqIFFile = test.getReqIFFile();
 		
-		// Handling uncompression and compression by ZipHandler
-		
+//		// Handling uncompression and compression by ZipHandler
+//		
 		ZipHandler zipHandler = new ZipHandler(filePath);		
 		zipHandler.unzipit();
 		
@@ -86,8 +87,8 @@ public class ReqIFModuleLink {
 		
 		// Compress all relevant files into reqifz as a final outcome. 
 		zipHandler.zipit();
-		
-		
+		String finalZipFile = zipHandler.getOutputFileName();
+		System.out.println("It successfully converted the RDNG ReqIF file to be compatible with DOORS. The final deliverable (ReqIFz) is " + finalZipFile);
 		
 		
 	}

@@ -46,8 +46,8 @@ public class ReqIFModuleLinkBuilder {
 		System.out.println("Creating artifact module link maps now.............");
 		addXmlNode = new AddXMLNode(reqIFFile);
 		for (int i=0; i < relations.size(); i++) {
-			System.out.println("Module-Source ID: " +relations.get(i).getSourceReqID());
-			System.out.println("Module-Target ID: " + relations.get(i).getTargetReqID());
+			System.out.println("Artifact-Source ID: " +relations.get(i).getSourceReqID());
+			System.out.println("Artifact-Target ID: " + relations.get(i).getTargetReqID());
 			StringBuilder sbOutput  = new StringBuilder();
 			sbOutput.append("<SPEC-RELATION LAST-CHANGE=\"" + relations.get(i).getLastChange() + "\" IDENTIFIER=\"" +
 					relations.get(i).getIdentifier() + "\">");

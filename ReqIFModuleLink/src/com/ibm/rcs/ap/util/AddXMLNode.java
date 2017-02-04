@@ -2,10 +2,16 @@ package com.ibm.rcs.ap.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -52,11 +58,12 @@ public class AddXMLNode {
 			        line = line.replaceAll("<REQ-IF ","<REQ-IF xmlns:doors=\"http://www.ibm.com/rdm/doors/REQIF/xmlns/1.0\" ");
 			    }  
 			}
-		    sb.append(line);                
+		    sb.append(line); 
 		}
 		br.close();
 
-		BufferedWriter bw = new BufferedWriter(new FileWriter(xmlFile));
+		//BufferedWriter bw = new BufferedWriter(new FileWriter(xmlFile));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(xmlFile),"UTF-8"));
 		bw.write(sb.toString());
 		bw.close();
   	    
@@ -99,8 +106,11 @@ public class AddXMLNode {
   	      String fragment) throws IOException, SAXException, Exception {
   	    
 		Document doc = parent.getOwnerDocument();
+		InputStream is = new ByteArrayInputStream(fragment.getBytes("UTF-8"));
+//		InputStream is = new ByteArrayInputStream(fragment.getBytes());
+//		Reader reader = new InputStreamReader(is,"UTF-8");
   	    Node fragmentNode = docBuilder.parse(
-  	        new InputSource(new StringReader(fragment)))
+  	        new InputSource(is))
   	        .getDocumentElement();
   	    
   	    fragmentNode = doc.importNode(fragmentNode, true);
