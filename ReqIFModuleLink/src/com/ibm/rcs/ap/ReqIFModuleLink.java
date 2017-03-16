@@ -37,16 +37,16 @@ public class ReqIFModuleLink {
 		// TODO Auto-generated method stub
 
 		// Provide console interface to get ReqIFz as an input.
-		ConsoleHelper console = new ConsoleHelper();		
-		String filePath = console.getReqIfzFile();	
-		File filePathCheck = new File(filePath);
-		filePath = filePathCheck.getAbsolutePath();
+//		ConsoleHelper console = new ConsoleHelper();		
+//		String filePath = console.getReqIfzFile();	
+//		File filePathCheck = new File(filePath);
+//		filePath = filePathCheck.getAbsolutePath();
 		
 
 		// Eclipse test class
-//		Test test = new Test();
-//		String filePath = test.getReqIFzFile();	
-//		String reqIFFile = test.getReqIFFile();
+		Test test = new Test();
+		String filePath = test.getReqIFzFile();	
+	
 		
 //		// Handling uncompression and compression by ZipHandler
 //		
@@ -80,10 +80,12 @@ public class ReqIFModuleLink {
 		ReqModuleFactory reqModFactory = new ReqModuleFactory(doc, addXmlNode);
 		
 		// Adding xmlns:doors namespace for DOORS REQIF-DEFINITION
-		addXmlNode.addNameSpace();
+		// Remove as per requested no merge will be allowed
+		//addXmlNode.addNameSpace();
 		
 		// Appending DOORS REQIF-DEFINITION with MODULE LOCK
-		reqModFactory.updateDOORSReqIFDefinition();
+		// Remove as per requested no merge will be allowed
+		//reqModFactory.updateDOORSReqIFDefinition();
 		
 		// Compress all relevant files into reqifz as a final outcome. 
 		zipHandler.zipit();
