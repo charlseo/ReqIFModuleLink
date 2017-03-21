@@ -35,10 +35,15 @@ public class AddXMLNode {
 	private DocumentBuilder documentBuilder;
 	private String reqIfFilePath;
 	private String linkMaps;
+	private Document doc;
+	private Node specRelationsNode;
 	
 	public AddXMLNode(String reqIfFilePath) throws Exception{
 		this.reqIfFilePath = reqIfFilePath;
 		documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		doc = documentBuilder.parse(reqIfFilePath);
+		doc.getDocumentElement().normalize();
+		specRelationsNode = doc.getElementsByTagName("SPEC-RELATIONS").item(0);
 		
 	}
 	
@@ -73,10 +78,10 @@ public class AddXMLNode {
 	public void addLinkMaps(String linkMaps) throws Exception, IOException{
 		
 		this.linkMaps = linkMaps;
-		Document doc = documentBuilder.parse(reqIfFilePath);
+		// doc = documentBuilder.parse(reqIfFilePath);
         
-        doc.getDocumentElement().normalize();
-		Node specRelationsNode = doc.getElementsByTagName("SPEC-RELATIONS").item(0);
+//        doc.getDocumentElement().normalize();
+//		Node specRelationsNode = doc.getElementsByTagName("SPEC-RELATIONS").item(0);
 		
 		appendXmlFragment(documentBuilder, specRelationsNode, linkMaps);
 	}

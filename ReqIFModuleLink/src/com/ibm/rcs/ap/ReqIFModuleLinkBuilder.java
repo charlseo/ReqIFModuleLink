@@ -45,22 +45,39 @@ public class ReqIFModuleLinkBuilder {
 		getReqLinkMappings();
 		System.out.println("Creating artifact module link maps now.............");
 		addXmlNode = new AddXMLNode(reqIFFile);
+		String linkMapping = "";
+		
 		for (int i=0; i < relations.size(); i++) {
 			System.out.println("Artifact-Source ID: " +relations.get(i).getSourceReqID());
 			System.out.println("Artifact-Target ID: " + relations.get(i).getTargetReqID());
+			
+			
 			StringBuilder sbOutput  = new StringBuilder();
-			sbOutput.append("<SPEC-RELATION LAST-CHANGE=\"" + relations.get(i).getLastChange() + "\" IDENTIFIER=\"" +
-					relations.get(i).getIdentifier() + "\">");
-			sbOutput.append("<SOURCE>" + "<SPEC-OBJECT-REF>" + relations.get(i).getSourceReqID() + "</SPEC-OBJECT-REF>" +
-					"</SOURCE>");
-			sbOutput.append("<TARGET>" + "<SPEC-OBJECT-REF>" + relations.get(i).getTargetReqID() + "</SPEC-OBJECT-REF>" +
-					"</TARGET>");
-			sbOutput.append("<TYPE>" + "<SPEC-RELATION-TYPE-REF>" + relations.get(i).getType() + "</SPEC-RELATION-TYPE-REF>" +
-					"</TYPE>");
-			sbOutput.append("</SPEC-RELATION>");
-			String linkMapping = sbOutput.toString();
-			addXmlNode.addLinkMaps(linkMapping);
+			if (relations.get(i).getSourceReqID() != null && relations.get(i).getTargetReqID() != null) {
+				
+				sbOutput.append("<SPEC-RELATION LAST-CHANGE=\"" + relations.get(i).getLastChange() + "\" IDENTIFIER=\"" +
+						relations.get(i).getIdentifier() + "\">");
+				sbOutput.append("<SOURCE>" + "<SPEC-OBJECT-REF>" + relations.get(i).getSourceReqID() + "</SPEC-OBJECT-REF>" +
+						"</SOURCE>");
+				sbOutput.append("<TARGET>" + "<SPEC-OBJECT-REF>" + relations.get(i).getTargetReqID() + "</SPEC-OBJECT-REF>" +
+						"</TARGET>");
+				sbOutput.append("<TYPE>" + "<SPEC-RELATION-TYPE-REF>" + relations.get(i).getType() + "</SPEC-RELATION-TYPE-REF>" +
+						"</TYPE>");
+				sbOutput.append("</SPEC-RELATION>");
+				linkMapping = sbOutput.toString();
+				System.out.println(linkMapping);
+				addXmlNode.addLinkMaps(linkMapping);
+				
+			}
+			
+			
+			
+			//Thread.sleep(5);
+			
 		}
+		
+			
+
 		
 	}
 	
